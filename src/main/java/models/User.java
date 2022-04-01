@@ -2,6 +2,9 @@ package models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -10,7 +13,7 @@ import javax.persistence.Table;
     @NamedQueries({
         @NamedQuery(
         name = "getAllUsers",
-        query = "select m from User as m order by id DESC"
+        query = "select m from User as m order by m.id DESC"
         ),
     @NamedQuery(
         name = "getUsersCount",
@@ -22,11 +25,11 @@ import javax.persistence.Table;
 
     public class User {
 
-/*      @Id
+        @Id
         @Column(name = "id")
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer id;
-*/
+
 
         @Column(name = "name", length = 12, nullable = false)
         private String name;
@@ -37,14 +40,17 @@ import javax.persistence.Table;
         @Column(name = "password", length = 64, nullable = false)
         private String pasword;
 
-/*        public Integer getId() {
+        @Column(name = "admin_flag", nullable = false)
+        private Integer adminFlag;
+
+
+        public Integer getId() {
             return id;
         }
 
         public void setId(Integer id) {
             this.id = id;
         }
-*/
 
         public String getName() {
             return name;
@@ -68,6 +74,14 @@ import javax.persistence.Table;
 
         public void setPasword(String pasword) {
             this.pasword = pasword;
+        }
+
+        public Integer getAdminFlag() {
+            return adminFlag;
+        }
+
+        public void setAdminFlag(Integer adminFlag) {
+            this.adminFlag = adminFlag;
         }
 
 }

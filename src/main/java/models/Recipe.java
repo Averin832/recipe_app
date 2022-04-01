@@ -15,10 +15,10 @@ import javax.persistence.Table;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(
+/*    @NamedQuery(
     name = "getAllRecipes",
-    query = "select m from Recipe as m order by id DESC"
-    ),
+    query = "select m from Recipe as m order by m.id DESC"
+    ),*/
 @NamedQuery(
     name = "getRecipesCount",
     query = "select count(m) from Recipe as m"

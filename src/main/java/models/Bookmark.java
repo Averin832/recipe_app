@@ -15,13 +15,10 @@ import javax.persistence.Table;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(
-    name = "getAllBookmarks",
-    query = "select m from Bookmark as m order by id DESC"
-    ),
+
 @NamedQuery(
     name = "getBookmarksCount",
-    query = "select count(m) from Boomark as m"
+    query = "select count(m) from Bookmark as m"
     )
 })
 
