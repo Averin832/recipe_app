@@ -1,6 +1,6 @@
 package models;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,7 +51,7 @@ public class Recipe {
     private User user;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     public Integer getId() {
         return id;
@@ -101,11 +101,11 @@ public class Recipe {
         this.user = user;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
