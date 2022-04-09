@@ -12,13 +12,22 @@ import javax.persistence.Table;
 @Entity
     @NamedQueries({
         @NamedQuery(
-        name = "getAllUsers",
-        query = "select m from User as m order by m.id DESC"
-        ),
-    @NamedQuery(
-        name = "getUsersCount",
-        query = "select count(m) from User as m"
-        )
+                name = "getAllUsers",
+                query = "select u from User as u order by u.id DESC"
+                ),
+        @NamedQuery(
+                name = "getUsersCount",
+                query = "select count(u) from User as u"
+                ),
+        @NamedQuery(
+                name = "countRegisteredByMail",
+                query = "select count(u) from User as u where u.mail = :mail"
+                ),
+        @NamedQuery(
+                name = "getByMailAndPass",
+                query = "select u from User as u where u.mail = :mail and u.password = :password"
+                )
+
     })
 
     @Table(name = "users")
@@ -38,10 +47,10 @@ import javax.persistence.Table;
         private String mail;
 
         @Column(name = "password", length = 64, nullable = false)
-        private String pasword;
+        private String password;
 
-        @Column(name = "admin_flag", nullable = false)
-        private Integer adminFlag;
+        //@Column(name = "admin_flag", nullable = false)
+        //private Integer adminFlag;
 
 
         public Integer getId() {
@@ -68,14 +77,14 @@ import javax.persistence.Table;
             this.mail = mail;
         }
 
-        public String getPasword() {
-            return pasword;
+        public String getPassword() {
+            return password;
         }
 
-        public void setPasword(String pasword) {
-            this.pasword = pasword;
+        public void setPassword(String password) {
+            this.password = password;
         }
-
+/*
         public Integer getAdminFlag() {
             return adminFlag;
         }
@@ -83,5 +92,5 @@ import javax.persistence.Table;
         public void setAdminFlag(Integer adminFlag) {
             this.adminFlag = adminFlag;
         }
-
+*/
 }

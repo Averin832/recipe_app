@@ -17,6 +17,7 @@
             <div id = "header_menu">
 
             </div>
+        <p><a href = "${pageContext.request.contextPath }/new">新規登録</a></p>
 
         </div>
         <div id = "content">${param.content }</div>

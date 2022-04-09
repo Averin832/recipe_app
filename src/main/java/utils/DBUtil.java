@@ -5,6 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class DBUtil {
+
     private static final String PERSISTENCE_UNIT_NAME = "recipe_app";
     private static EntityManagerFactory emf;
 

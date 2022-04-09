@@ -1,4 +1,4 @@
-package controllors.users;
+package controllors.login;
 
 import java.io.IOException;
 
@@ -9,19 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.User;
-
 /**
- * Servlet implementation class NewServlet
+ * Servlet implementation class ShowLoginServlet
  */
-@WebServlet("/new")
-public class NewServlet extends HttpServlet {
+@WebServlet("/login")
+public class ShowLoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewServlet() {
+    public ShowLoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,11 +29,10 @@ public class NewServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-            request.setAttribute("_token", request.getSession().getId());
-            request.setAttribute("user", new User());
+        request.setAttribute("_token", request.getSession().getId());
 
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/new.jsp");
-            rd.forward(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");
+        rd.forward(request, response);
 
     }
 

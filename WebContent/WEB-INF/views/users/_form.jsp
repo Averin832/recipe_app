@@ -14,5 +14,6 @@
 
 <input type = "hidden" name = "id" value = "${user.id }" />
 <input type = "hidden" name = "_token" value = "${_token }" />
+<!--input type = "hidden" name = "adminFlag" value = ${adminFlag } value = "0"/-->
 
 <button type = "submit">登録</button>

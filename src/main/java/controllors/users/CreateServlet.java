@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import constants.PropertyConst;
 import models.User;
 import utils.DBUtil;
+import utils.EncryptUtil;
 
 /**
  * Servlet implementation class CreateServlet
@@ -48,20 +48,35 @@ public class CreateServlet extends HttpServlet {
             String mail = request.getParameter("mail");
             u.setMail(mail);
 
-            String password = request.getParameter("password");
+            String password = EncryptUtil.getPasswordEncrypt(
+                    request.getParameter("password"),
+                    (String)this.getServletContext().getAttribute("pepper")
+                    );
             u.setPassword(password);
+/*
+            List<String> errors = UserValidator.validate(null, u, null, null);
+                if (errors.size() > 0) {
+                    em.close();
 
-            String pepper = getContextScope(PropertyConst.PEPPER);
+                    request.setAttribute("_token", request.getSession().getId());
+                    request.setAttribute("user", u);
+                    request.setAttribute("errors", errors);
 
-            // List<String> errors = service.create(u, pepper);
+                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/new.jsp");
+                    rd.forward(request, response);
 
+                } else {
+*/
             em.persist(u);
             em.getTransaction().commit();
             em.close();
 
             response.sendRedirect(request.getContextPath() + "/index");
 
+            //}
+
         }
+
     }
 
 }
