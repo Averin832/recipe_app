@@ -34,7 +34,7 @@ public class UserService extends ServiceBase{
         try {
 
             String password = EncryptUtil.getPasswordEncrypt(plainPass, pepper);
-            u = em.createNamedQuery("getByCodeAndPass", User.class)
+            u = em.createNamedQuery("getByMailAndPass", User.class)
                     .setParameter("mail", mail)
                     .setParameter("password", password)
                     .getSingleResult();
@@ -45,13 +45,7 @@ public class UserService extends ServiceBase{
         return u;
     }
 
-    public long countByMail(String mail) {
-
-        long users_count = (long) em.createNamedQuery("countRegisteredByMail", Long.class)
-                .setParameter("mail", mail)
-                .getSingleResult();
-        return users_count;
-    }
+   
 
     public User findOne(int id) {
 

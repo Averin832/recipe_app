@@ -3,18 +3,21 @@ package models.validators;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import models.User;
-import services.UserService;
+import utils.DBUtil;
 
 public class UserValidator {
 
+
     public static List<String> validate(
-            UserService service, User u, Boolean mailDuplicateCheckFlag, Boolean passwordCheckFlag
+            User u, Boolean mailDuplicateCheckFlag, Boolean passwordCheckFlag
             ){
 
         List<String> errors = new ArrayList<String>();
 
-        String mailError = validateMail(service, u.getMail(), mailDuplicateCheckFlag);
+        String mailError = validateMail(u.getMail(), mailDuplicateCheckFlag);
         if (!mailError.equals("")) {
             errors.add(mailError);
         }
@@ -33,7 +36,7 @@ public class UserValidator {
 
     }
 
-    private static String validateMail(UserService service, String mail, Boolean mailDuplicateCheckFlag) {
+    private static String validateMail(String mail, Boolean mailDuplicateCheckFlag) {
 
         if (mail == null || mail.equals("")){
             return "メールアドレスを入力してください";
@@ -41,7 +44,7 @@ public class UserValidator {
 
         if (mailDuplicateCheckFlag) {
 
-            long userCount = isDuplicateUser(service, mail);
+            long userCount = isDuplicateUser(mail);
 
             if (userCount > 0) {
                 return "入力されたメールアドレスは既に存在しています。";
@@ -51,10 +54,18 @@ public class UserValidator {
         return "";
     }
 
-    private static long isDuplicateUser(UserService service, String mail) {
+    private static long isDuplicateUser(String mail) {
 
-        long userCount = service.countByMail(mail);
-        return userCount;
+        EntityManager em = DBUtil.createEntityManager();
+
+        long users_count = (long) em.createNamedQuery("countRegisteredByMail", Long.class)
+                .setParameter("mail", mail)
+                .getSingleResult();
+
+        em.close();
+
+        return users_count;
+
     }
 
     private static String validateName(String name) {
@@ -69,10 +80,10 @@ public class UserValidator {
 
         if (passwordCheckFlag && (password == null || password.equals(""))) {
             return "パスワードを入力してください";
-        }
+        } else {
 
         return "";
+        }
     }
-
 
 }

@@ -57,7 +57,7 @@ public class CreateServlet extends HttpServlet {
                     );
             u.setPassword(password);
 
-            List<String> errors = UserValidator.validate(u, null, null);
+            List<String> errors = UserValidator.validate(u, true, true);
                 if (errors.size() > 0) {
 
                     em.close();
