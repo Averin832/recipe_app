@@ -1,8 +1,10 @@
 package controllors.users;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.User;
+import models.validators.UserValidator;
 import utils.DBUtil;
 import utils.EncryptUtil;
 
@@ -53,9 +56,10 @@ public class CreateServlet extends HttpServlet {
                     (String)this.getServletContext().getAttribute("pepper")
                     );
             u.setPassword(password);
-/*
-            List<String> errors = UserValidator.validate(null, u, null, null);
+
+            List<String> errors = UserValidator.validate(u, null, null);
                 if (errors.size() > 0) {
+
                     em.close();
 
                     request.setAttribute("_token", request.getSession().getId());
@@ -66,14 +70,15 @@ public class CreateServlet extends HttpServlet {
                     rd.forward(request, response);
 
                 } else {
-*/
+
             em.persist(u);
             em.getTransaction().commit();
+            request.getSession().setAttribute("flush", "登録が完了しました");
             em.close();
 
             response.sendRedirect(request.getContextPath() + "/index");
 
-            //}
+            }
 
         }
 

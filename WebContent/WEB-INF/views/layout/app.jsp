@@ -17,7 +17,15 @@
             <div id = "header_menu">
 
             </div>
-        <p><a href = "${pageContext.request.contextPath }/new">新規登録</a></p>
+        <p><a href = "${pageContext.request.contextPath }/login">ログイン</a></p>
+
+        <c:if test = "${login_user != null}" >
+                <div id = "user_name" >
+                    <c:out value="${login_user.name}" />
+                    &nbsp;さん&nbsp;&nbsp;&nbsp;
+                    <a href = "${pageContext.request.contextPath }/logout" >ログアウト</a>
+                </div>
+            </c:if>
 
         </div>
         <div id = "content">${param.content }</div>
