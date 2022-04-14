@@ -41,7 +41,7 @@ public class Recipe {
     private String ingredient;
 
     @Column(name = "how_to", nullable = false)
-    private String how_to;
+    private String howTo;
 
     @Column(name = "word", length = 255, nullable = true)
     private String word;
@@ -77,12 +77,12 @@ public class Recipe {
         this.ingredient = ingredient;
     }
 
-    public String getHow_to() {
-        return how_to;
+    public String getHowTo() {
+        return howTo;
     }
 
-    public void setHow_to(String how_to) {
-        this.how_to = how_to;
+    public void setHowTo(String howTo) {
+        this.howTo = howTo;
     }
 
     public String getWord() {

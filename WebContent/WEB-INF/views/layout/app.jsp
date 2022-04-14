@@ -18,6 +18,7 @@
 
             </div>
         <p><a href = "${pageContext.request.contextPath }/login">ログイン</a></p>
+        <p><a href = "${pageContext.request.contextPath }/new_recipe">レシピの投稿</a></p>
 
         <c:if test = "${login_user != null}" >
                 <div id = "user_name" >
