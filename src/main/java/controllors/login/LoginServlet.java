@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.User;
-import services.UserService;
+import models.validators.UserValidator;
 import utils.DBUtil;
 
 /**
@@ -35,24 +34,23 @@ public class LoginServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ServletContext application = this.getServletContext();
         EntityManager em = DBUtil.createEntityManager();
         em.getTransaction().begin();
 
         String mail = request.getParameter("mail");
         String plainPass = request.getParameter("password");
-        String pepper = (String) application.getAttribute("pepper");
+        String pepper = (String)this.getServletContext().getAttribute("pepper");
         String _token = request.getParameter("_token");
-        UserService service = new UserService();
 
-        Boolean isValidUser = service.validateLogin(mail, plainPass, pepper);
+        Boolean isValidUser = UserValidator.validateLogin(mail, plainPass, pepper);
 
-        if (isValidUser) {
+        if (isValidUser == true) {
 
             if (_token != null && _token.equals(request.getSession().getId())) {
 
-                User u = service.findOne(mail, plainPass, pepper);
+                User u = UserValidator.findOne(mail, plainPass, pepper);
                 request.getSession().setAttribute("login_user", u);
+                request.getSession().setAttribute("flush", "ログインしました");
 
                 em.close();
 
@@ -63,6 +61,7 @@ public class LoginServlet extends HttpServlet {
                 em.close();
 
                 request.setAttribute("_token", _token);
+                request.setAttribute("loginError", true);
                 request.setAttribute("mail", mail);
 
 
