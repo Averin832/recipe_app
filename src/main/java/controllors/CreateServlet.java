@@ -55,6 +55,9 @@ public class CreateServlet extends HttpServlet {
             String how_to = request.getParameter("how_to");
             r.setHowTo(how_to);
 
+            String word = request.getParameter("word");
+            r.setWord(word);
+
             LocalDate createdAt = LocalDate.now();
             r.setCreatedAt(createdAt);
 

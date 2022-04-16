@@ -5,15 +5,18 @@
 <br/><br/>
 
 <label for = "ingredient">材料</label><br/>
-<input type = "text" name = "ingredient" value = "${recipe.ingredient }" />
+<textarea name = "ingredient" rows = "10" cols = "50" >${recipe.ingredient }</textarea>
 <br/><br/>
 
 <label for = "how_to">作り方</label><br/>
-<input type = "text" name = "how_to" value = "${recipe.howTo }" />
+<textarea name = "how_to" rows = "10" cols = "50">${recipe.howTo }</textarea>
+<br/><br/>
+
+<label for = "word">詳細</label><br/>
+<textarea name = "word" rows = "10" cols = "50">${recipe.word }</textarea>
 <br/><br/>
 
 <input type = "hidden" name = "id" value = "${recipe.id }" />
-<input type = "hidden" name = "user_mail" value = "${recipe.user }" />
 <input type = "hidden" name = "_token" value = "${_token }" />
 
 
