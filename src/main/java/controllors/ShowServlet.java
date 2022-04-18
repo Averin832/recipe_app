@@ -39,6 +39,7 @@ public class ShowServlet extends HttpServlet {
 
         em.close();
 
+        request.setAttribute("_token", request.getSession().getId());
         request.setAttribute("recipe", r);
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/recipe/show.jsp");

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.User;
+import models.Recipe;
 
 /**
  * Servlet implementation class NewServlet
@@ -32,7 +32,7 @@ public class NewServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setAttribute("_token", request.getSession().getId());
-        request.setAttribute("user", new User());
+        request.setAttribute("recipe", new Recipe());
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/recipe/new.jsp");
         rd.forward(request, response);

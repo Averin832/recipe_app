@@ -39,7 +39,6 @@ import javax.persistence.Table;
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer id;
 
-
         @Column(name = "name", length = 12, nullable = false)
         private String name;
 

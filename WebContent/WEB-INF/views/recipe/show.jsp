@@ -25,7 +25,7 @@
 
                 <tr>
                     <th>制作者</th>
-                    <td><c:out value = "${recipe.user }" /></td>
+                    <td><c:out value = "${recipe.user.name }" /></td>
                 </tr>
 
                 <tr>
@@ -38,14 +38,29 @@
                     <td><c:out value = "${recipe.howTo }" /></td>
                 </tr>
 
-
+                <c:if test = "${recipe.word != null }" >
+                    <tr>
+                        <th>詳細</th>
+                        <td><c:out value = "${recipe.word }" /></td>
+                    </tr>
+                </c:if>
 
             </tbody>
         </table>
 
+        <c:if test = "${login_user != null }" >
+            <form method = "POST" action = "${pageContext.request.contextPath }/register" >
+                <button type = "submit">ブックマークに登録する</button>
+            </form>
+        </c:if>
+
+        <c:if test = "${login_user.id == recipe.user.id }" >
+            <p>
+                <p><a href = "${pageContext.request.contextPath }/edit_recipe?id=${recipe.id }">このレシピを編集する</a></p>
+            </p>
+        </c:if>
 
         <p><a href = "${pageContext.request.contextPath }/index">一覧に戻る</a></p>
-        <p><a href = "${pageContext.request.contextPath }/edit_recipe?id=${recipe.id }">このレシピを編集する</a></p>
         </c:when>
 
         <c:otherwise>

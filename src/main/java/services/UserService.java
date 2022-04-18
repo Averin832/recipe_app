@@ -2,8 +2,6 @@ package services;
 
 import java.util.List;
 
-import javax.persistence.NoResultException;
-
 import models.User;
 import models.validators.UserValidator;
 import utils.EncryptUtil;
@@ -27,25 +25,9 @@ public class UserService extends ServiceBase{
         return userCount;
     }
 
-    public User findOne(String mail, String plainPass, String pepper) {
 
-        User u = null;
 
-        try {
 
-            String password = EncryptUtil.getPasswordEncrypt(plainPass, pepper);
-            u = em.createNamedQuery("getByMailAndPass", User.class)
-                    .setParameter("mail", mail)
-                    .setParameter("password", password)
-                    .getSingleResult();
-
-        } catch (NoResultException ex) {
-        }
-
-        return u;
-    }
-
-   
 
     public User findOne(int id) {
 
@@ -68,7 +50,7 @@ public class UserService extends ServiceBase{
         u.setPassword(pass);
 
         //登録内容のバリデーションを行う
-        List<String> errors = UserValidator.validate(this, u, true, true);
+        List<String> errors = UserValidator.validate(u, true, true);
 
         //バリデーションエラーがなければデータを登録する
         if (errors.size() == 0) {
@@ -97,7 +79,7 @@ public class UserService extends ServiceBase{
 
         savedU.setName(u.getName());
 
-        List<String> errors = UserValidator.validate(this,  savedU, validateMail, validatePassword);
+        List<String> errors = UserValidator.validate(savedU, validateMail, validatePassword);
 
         if(errors.size() == 0) {
             update(savedU);
@@ -108,20 +90,7 @@ public class UserService extends ServiceBase{
 
     }
 
-    public Boolean validateLogin(String mail, String plainPass, String pepper) {
 
-        boolean isValidUser = false;
-        if (mail != null && !mail.equals("") && plainPass != null && !plainPass.equals("")) {
-
-            User u = findOne(mail, plainPass, pepper);
-            if (u != null && u.getId() != null) {
-
-                isValidUser = true;
-            }
-        }
-
-        return isValidUser;
-    }
 
     private void create(User u) {
 

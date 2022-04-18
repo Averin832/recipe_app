@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import models.User;
 import utils.DBUtil;
+import utils.EncryptUtil;
 
 public class UserValidator {
 
@@ -69,8 +71,13 @@ public class UserValidator {
     }
 
     private static String validateName(String name) {
+
          if (name == null || name.equals("")) {
              return "ユーザーネームを入力してください";
+         }
+
+         if (name.length() > 12) {
+             return "ユーザーネームは12文字以内にしてください";
          }
 
          return "";
@@ -86,4 +93,40 @@ public class UserValidator {
         }
     }
 
+    public static Boolean validateLogin(String mail, String plainPass, String pepper) {
+
+        boolean isValidUser = false;
+        if (mail != null && !mail.equals("") && plainPass != null && !plainPass.equals("")) {
+
+            User u = findOne(mail, plainPass, pepper);
+            if (u != null && u.getId() != null) {
+
+                isValidUser = true;
+            }
+        }
+
+        return isValidUser;
+    }
+
+    public static User findOne(String mail, String plainPass, String pepper) {
+
+        User u = null;
+
+        try {
+
+            EntityManager em = DBUtil.createEntityManager();
+
+            String password = EncryptUtil.getPasswordEncrypt(plainPass, pepper);
+            u = em.createNamedQuery("getByMailAndPass", User.class)
+                    .setParameter("mail", mail)
+                    .setParameter("password", password)
+                    .getSingleResult();
+
+            em.close();
+
+        } catch (NoResultException ex) {
+        }
+
+        return u;
+    }
 }

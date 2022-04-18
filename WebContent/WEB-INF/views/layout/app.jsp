@@ -16,20 +16,32 @@
         <div id = "header">
             <div id = "header_menu">
 
-            </div>
-        <p><a href = "${pageContext.request.contextPath }/login">ログイン</a></p>
-        <p><a href = "${pageContext.request.contextPath }/new_recipe">レシピの投稿</a></p>
+                <c:if test = "${login_user == null }" >
 
-        <c:if test = "${login_user != null}" >
-                <div id = "user_name" >
-                    <c:out value="${login_user.name}" />
-                    &nbsp;さん&nbsp;&nbsp;&nbsp;
+                    <p><a href = "${pageContext.request.contextPath }/login">ログイン</a></p>
+
+                </c:if>
+
+                <c:if test = "${login_user != null}" >
+
+                        <div id = "user_name" >
+
+                            <c:out value = "${login_user.name}" />
+                            &nbsp;さん&nbsp;&nbsp;&nbsp;
+
+                        </div>
+
+                    <a href = "${pageContext.request.contextPath }/userpage" >ユーザーページ</a>
+                    <a href = "${pageContext.request.contextPath }/bookmarks" >ブックマーク一覧</a>
                     <a href = "${pageContext.request.contextPath }/logout" >ログアウト</a>
-                </div>
-            </c:if>
 
+                </c:if>
+
+                <p><a href = "${pageContext.request.contextPath }/new_recipe">レシピの投稿</a></p>
+
+            </div>
         </div>
+    </div>
         <div id = "content">${param.content }</div>
         <div id = "footer">by Koh Aoki</div>
-    </div>
 </body>

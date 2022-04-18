@@ -26,6 +26,11 @@ public class RecipeValidator {
             errors.add(howToError);
         }
 
+        String wordError = validateWord(r.getWord());
+        if (!wordError.equals("")) {
+            errors.add(wordError);
+        }
+
         return errors;
     }
 
@@ -33,6 +38,10 @@ public class RecipeValidator {
 
         if (title == null || title.equals("")) {
             return "料理名を入力してください";
+        }
+
+        if (title.length() > 12) {
+            return "料理名は12文字以内にしてください";
         }
 
         return "";
@@ -48,8 +57,18 @@ public class RecipeValidator {
     }
 
     private static String validateHowTo(String how_to) {
+
         if (how_to == null || how_to.equals("")) {
             return "作り方を入力してください";
+        }
+
+        return "";
+    }
+
+    private static String validateWord(String word) {
+
+        if (word.length() > 255) {
+            return "255文字以内にしてください";
         }
 
         return "";
