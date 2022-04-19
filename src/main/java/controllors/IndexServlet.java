@@ -46,12 +46,12 @@ public class IndexServlet extends HttpServlet {
         List<Recipe> recipes = em.createNamedQuery("getAllRecipes", Recipe.class)
                 .setFirstResult(10 * (page - 1)).setMaxResults(10).getResultList();
 
-        long recipe_count = (long)em.createNamedQuery("getRecipesCount", Long.class).getSingleResult();
+        long recipes_count = (long)em.createNamedQuery("getRecipesCount", Long.class).getSingleResult();
 
         em.close();
 
         request.setAttribute("recipes", recipes);
-        request.setAttribute("recipe_count", recipe_count);
+        request.setAttribute("recipes_count", recipes_count);
         request.setAttribute("page", page);
 
         if (request.getSession().getAttribute("flush") != null) {
