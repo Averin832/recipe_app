@@ -17,11 +17,19 @@ import javax.persistence.Table;
     @NamedQueries({
         @NamedQuery(
                 name = "getAllRecipes",
-                query = "select m from Recipe as m order by m.id DESC"
+                query = "select r from Recipe as r order by r.id DESC"
                 ),
         @NamedQuery(
                 name = "getRecipesCount",
-                query = "select count(m) from Recipe as m"
+                query = "select count(r) from Recipe as r"
+                ),
+        @NamedQuery(
+                name = "getAllMine",
+                query = "select r from Recipe as r where r.user = :user order by r.id DESC"
+                ),
+        @NamedQuery(
+                name = "countAllMine",
+                query = "select count(r) from Recipe as r where r.user = :user"
                 )
     })
 
