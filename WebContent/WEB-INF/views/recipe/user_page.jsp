@@ -43,5 +43,7 @@
             </c:forEach>
         </div>
 
+        <p><a href = "${pageContext.request.contextPath }/index">トップページに戻る</a></p>
+
     </c:param>
 </c:import>

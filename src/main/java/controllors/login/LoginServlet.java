@@ -50,7 +50,6 @@ public class LoginServlet extends HttpServlet {
 
                 User u = UserValidator.findOne(mail, plainPass, pepper);
                 request.getSession().setAttribute("login_user", u);
-                request.getSession().setAttribute("user_mail", mail);
                 request.getSession().setAttribute("flush", "ログインしました");
 
                 em.close();

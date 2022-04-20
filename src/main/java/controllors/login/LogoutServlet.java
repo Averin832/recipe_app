@@ -35,7 +35,6 @@ public class LogoutServlet extends HttpServlet {
         em.getTransaction().begin();
 
         request.getSession().removeAttribute("login_user");
-        request.getSession().removeAttribute("user_mail");
         request.getSession().setAttribute("flush", "ログアウトしました");
 
         em.close();

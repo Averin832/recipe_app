@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Bookmark;
 import models.Recipe;
 import utils.DBUtil;
 
@@ -41,6 +42,7 @@ public class ShowServlet extends HttpServlet {
 
         request.setAttribute("_token", request.getSession().getId());
         request.setAttribute("recipe", r);
+        request.setAttribute("bookmark", new Bookmark());
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/recipe/show.jsp");
         rd.forward(request, response);

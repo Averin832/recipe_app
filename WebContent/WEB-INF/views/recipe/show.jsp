@@ -50,13 +50,16 @@
 
         <c:if test = "${login_user != null }" >
             <form method = "POST" action = "${pageContext.request.contextPath }/register" >
+                <input type = "hidden" name = "id" value = "${bookmark.id }" />
+                <input type = "hidden" name = "_token" value = "${_token }" />
+                <input type = "hidden" name = "recipe_id" value = "${recipe.id }" />
                 <button type = "submit">ブックマークに登録する</button>
             </form>
         </c:if>
 
         <c:if test = "${login_user.id == recipe.user.id }" >
             <p>
-                <p><a href = "${pageContext.request.contextPath }/edit_recipe?id=${recipe.id }">このレシピを編集する</a></p>
+                <a href = "${pageContext.request.contextPath }/edit_recipe?id=${recipe.id }">このレシピを編集する</a>
             </p>
         </c:if>
 

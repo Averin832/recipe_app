@@ -35,7 +35,7 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String _token = request.getParameter("_token");
-        String mail = request.getParameter("mail");
+        String id = request.getParameter("recipe_id");
 
         if (_token != null && _token.equals(request.getSession().getId())) {
 
@@ -44,18 +44,20 @@ public class RegisterServlet extends HttpServlet {
 
             Bookmark b = new Bookmark();
 
-            Recipe r = (Recipe) request.getSession().getAttribute("recipe_id");
+            //Recipe r = request.getSession().getAttribute(recipe);
+            Recipe r = em.find(Recipe.class, Integer.parseInt(id));
             b.setRecipe(r);
 
-            User user_mail = (User) request.getSession().getAttribute(mail);
-            b.setUser(user_mail);
+            User u = (User) request.getSession().getAttribute("login_user");
+            b.setUser(u);
 
             em.persist(b);
             em.getTransaction().commit();
             request.getSession().setAttribute("flush", "ブックマークに登録しました");
             em.close();
 
-            response.sendRedirect(request.getContextPath() + "/recipe?id=${recipe.id }");
+            // response.sendRedirect(request.getContextPath() + "/recipe?id=${recipe.id }");
+            response.sendRedirect(request.getContextPath() + "/index");
 
         }
 

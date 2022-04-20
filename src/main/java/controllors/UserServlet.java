@@ -35,7 +35,7 @@ public class UserServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        User loginuser = (User) request.getSession().getAttribute("login_user");
+        User login_user = (User) request.getSession().getAttribute("login_user");
         EntityManager em = DBUtil.createEntityManager();
 
         int page = 1;
@@ -46,13 +46,13 @@ public class UserServlet extends HttpServlet {
             }
 
         List<Recipe> recipes = em.createNamedQuery("getAllMine", Recipe.class)
-                .setParameter("user", loginuser)
+                .setParameter("user", login_user)
                 .setFirstResult(10 * (page - 1))
                 .setMaxResults(10)
                 .getResultList();
 
         long myRecipesCount = (long) em.createNamedQuery("countAllMine", Long.class)
-                .setParameter("user", loginuser)
+                .setParameter("user", login_user)
                 .getSingleResult();
 
         em.close();
