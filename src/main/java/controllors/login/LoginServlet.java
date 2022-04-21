@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 
         Boolean isValidUser = UserValidator.validateLogin(mail, plainPass, pepper);
 
-        if (isValidUser == true) {
+        if (isValidUser) {
 
             if (_token != null && _token.equals(request.getSession().getId())) {
 
@@ -56,18 +56,18 @@ public class LoginServlet extends HttpServlet {
 
                 response.sendRedirect(request.getContextPath() + "/index");
 
-            } else {
-
-                em.close();
-
-                request.setAttribute("_token", _token);
-                request.setAttribute("loginError", true);
-                request.setAttribute("mail", mail);
-
-
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");
-                rd.forward(request, response);
             }
+        } else {
+
+            em.close();
+
+            request.setAttribute("_token", _token);
+            request.setAttribute("loginError", true);
+            request.setAttribute("mail", mail);
+
+
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");
+            rd.forward(request, response);
 
         }
 
