@@ -31,7 +31,7 @@
 
                         </div>
 
-                    <a href = "${pageContext.request.contextPath }/user_page" >ユーザーページ</a>
+                    <a href = "${pageContext.request.contextPath }/user_page" >投稿レシピ一覧</a>
                     <a href = "${pageContext.request.contextPath }/bookmarks" >ブックマーク一覧</a>
                     <a href = "${pageContext.request.contextPath }/logout" >ログアウト</a>
 
