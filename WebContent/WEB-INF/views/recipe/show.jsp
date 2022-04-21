@@ -48,7 +48,7 @@
             </tbody>
         </table>
 
-        <c:if test = "${login_user != null }" >
+        <c:if test = "${login_user != null and login_user.id != recipe.user.id }" >
             <form method = "POST" action = "${pageContext.request.contextPath }/register" >
                 <input type = "hidden" name = "id" value = "${bookmark.id }" />
                 <input type = "hidden" name = "_token" value = "${_token }" />
