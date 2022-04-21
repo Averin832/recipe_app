@@ -15,12 +15,15 @@ import javax.persistence.Table;
 
 @Entity
 @NamedQueries({
-
-@NamedQuery(
-    name = "getBookmarksCount",
-    query = "select count(m) from Bookmark as m"
-    )
-})
+    @NamedQuery(
+            name = "countAllMyBookmarks",
+            query = "select count(b) from Bookmark as b where b.user = :user"
+            ),
+    @NamedQuery(
+            name  = "getAllMyBookmarks",
+            query = "select b from Bookmark as b where b.user = :user order by b.id DESC"
+            )
+    })
 
 @Table(name = "bookmarks")
 
